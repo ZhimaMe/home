@@ -1,147 +1,423 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <link rel="stylesheet" href="https://scdn.星.fun/icp.css">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Zhima">
-    <meta name="keywords" content="Zhima,Homepage">
-    <meta name="author" content="Zhima">
-    <title>芝麻の小窝</title>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/onlinewebfonts.css"/>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/vno.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/iconfont.css">
-    <link rel="apple-touch-icon" href="https://unpkg.com/dmego-home-page@latest/apple-touch-icon.png">
-    <link rel="icon" href="https://unpkg.com/dmego-home-page@latest/favicon.ico">
+	<link rel="stylesheet" href="https://scdn.星.fun/icp.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Zhima">
+	<meta name="keywords" content="Zhima,Homepage">
+	<meta name="author" content="Zhima">
+	<title>芝麻の小窝</title>
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/onlinewebfonts.css" />
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/vno.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/dmego-home-page@latest/assets/css/iconfont.css">
+	<link rel="apple-touch-icon" href="https://unpkg.com/dmego-home-page@latest/apple-touch-icon.png">
+	<link rel="icon" href="https://unpkg.com/dmego-home-page@latest/favicon.ico">
+	<style>
+		.site-footer {
+		    position: fixed;
+		    bottom: -100px; 
+		    left: 0;
+		    width: 100%;
+		    text-align: center;
+		    padding: 18px 0;
+		    z-index: 999;
+		    transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		    background: rgba(255, 255, 255, 0.08);
+		    backdrop-filter: blur(12px) saturate(180%);
+		    -webkit-backdrop-filter: blur(12px) saturate(180%);
+		    border-top: 1px solid rgba(255, 255, 255, 0.15);
+		    box-shadow: 
+		        0 -5px 30px rgba(0, 0, 0, 0.15),
+		        0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+		}
+		.site-footer::before {
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    height: 1px;
+		    background: linear-gradient(90deg, 
+		        transparent 0%, 
+		        rgba(255, 255, 255, 0.3) 20%, 
+		        rgba(255, 255, 255, 0.6) 50%, 
+		        rgba(255, 255, 255, 0.3) 80%, 
+		        transparent 100%);
+		}
+		.site-footer.visible {
+		    bottom: 0;
+		    animation: gentleSlideUp 0.5s ease-out;
+		}
+		@keyframes gentleSlideUp {
+		    0% {
+		        transform: translateY(20px);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateY(0);
+		        opacity: 1;
+		    }
+		}
+		.footer-content {
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 18px;
+		    flex-wrap: wrap;
+		    justify-content: center;
+		    max-width: 95%;
+		    margin: 0 auto;
+		    padding: 0 20px;
+		}
+		.footer-separator {
+		    color: rgba(255, 255, 255, 0.5);
+		    font-size: 14px;
+		    font-weight: 300;
+		    opacity: 0.7;
+		    transition: all 0.3s ease;
+		}
+		.footer-content a {
+		    transition: all 0.3s ease;
+		    filter: brightness(0.95);
+		    border-radius: 4px;
+		    padding: 2px 4px;
+		}
+		.footer-content a:hover {
+		    filter: brightness(1.1);
+		    transform: translateY(-1px);
+		    background: rgba(255, 255, 255, 0.1);
+		    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+		}
+		@media (max-width: 768px) {
+		    .site-footer {
+		        padding: 12px 0;
+		        backdrop-filter: blur(8px) saturate(180%);
+		        -webkit-backdrop-filter: blur(8px) saturate(180%);
+		    }
+		    .footer-content {
+		        gap: 8px;
+		        padding: 0 10px;
+		    }
+		    .footer-separator {
+		        font-size: 12px;
+		    }
+		}
+		@supports not (backdrop-filter: blur(12px)) {
+		    .site-footer {
+		        background: rgba(40, 44, 52, 0.95);
+		    }
+		}
+		body {
+		    min-height: 100vh;
+		    padding-bottom: 120px; 
+		}
+		.scroll-down-arrow {
+		    position: fixed;
+		    bottom: 40px;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    z-index: 998;
+		    cursor: pointer;
+		    opacity: 1;
+		    visibility: visible;
+		    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    gap: 8px;
+		}
+		.scroll-down-arrow:hover {
+		    transform: translateX(-50%) translateY(-3px);
+		}
+		.arrow-icon {
+		    width: 40px;
+		    height: 40px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: rgba(255, 255, 255, 0.9);
+		    font-size: 32px;
+		    animation: arrowBounce 2s infinite ease-in-out;
+		    transition: all 0.3s ease;
+		}
+		.scroll-down-arrow:hover .arrow-icon {
+		    transform: scale(1.1);
+		    color: rgba(255, 255, 255, 1);
+		}
+		.arrow-text {
+		    color: rgba(255, 255, 255, 0.7);
+		    font-size: 12px;
+		    font-weight: 300;
+		    text-transform: uppercase;
+		    letter-spacing: 2px;
+		    white-space: nowrap;
+		    transition: all 0.3s ease;
+		}
+		.scroll-down-arrow:hover .arrow-text {
+		    color: rgba(255, 255, 255, 0.9);
+		}
+		@keyframes arrowBounce {
+		    0%, 20%, 50%, 80%, 100% {
+		        transform: translateY(0);
+		    }
+		    40% {
+		        transform: translateY(-10px);
+		    }
+		    60% {
+		        transform: translateY(-5px);
+		    }
+		}
+		.scroll-down-arrow.hidden {
+		    opacity: 0;
+		    visibility: hidden;
+		    transform: translateX(-50%) translateY(30px); 
+		    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		    pointer-events: none; 
+		}
+		.site-footer.visible + .scroll-down-arrow {
+		    opacity: 0;
+		    visibility: hidden;
+		    transform: translateX(-50%) translateY(30px);
+		    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+		    pointer-events: none;
+		}
+		.scroll-down-arrow {
+		    animation: none !important;
+		}
+		@keyframes arrowAppear {
+		    0% {
+		        opacity: 0;
+		        transform: translateX(-50%) translateY(20px);
+		    }
+		    100% {
+		        opacity: 1;
+		        transform: translateX(-50%) translateY(0);
+		    }
+		}
+		@media (max-width: 768px) {
+		    .scroll-down-arrow {
+		        bottom: 30px;
+		        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		    }
+		    .scroll-down-arrow.hidden {
+		        transform: translateX(-50%) translateY(20px);
+		        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		    }
+		    .arrow-icon {
+		        width: 30px;
+		        height: 30px;
+		        font-size: 24px;
+		    }
+		    .arrow-text {
+		        font-size: 10px;
+		    }
+		}
+	</style>
 </head>
-
 <body>
-    <span class="mobile btn-mobile-menu">
-        <i class="social iconfont icon-list btn-mobile-menu__icon"></i>
-        <i class="social iconfont icon-angleup btn-mobile-close__icon hidden"></i>
-    </span>
-    <header id="panel" class="panel-cover">
-        <div class="panel-main">
-            <div class="panel-main__inner panel-inverted">
-                <div class="panel-main__content">
-                    <div class="ih-item circle effect right_to_left">            
-                        <a href="#" title="" class="blog-button">
-                            <div class="img"><img src="https://unpkg.com/dmego-home-page@latest/assets/img/logo3.jpg" alt="img" class="js-avatar iUp profilepic"></div>
-                            <div class="info iUp">
-                                <div class="info-back">
-                                    <h2>物竞天择</h2>
-                                    <p>适者生存</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <h1 class="panel-cover__title panel-title iUp">
-                        <a href="#" title="芝麻">Zhima</a>
-                    </h1>
-                    <p class="panel-cover__subtitle panel-subtitle iUp">古希腊掌管免费资源的神</p>
-                    <hr class="panel-cover__divider iUp" />
-                    <p id="description" class="panel-cover__description iUp">一言加载中
-                        <br/>
-                        <strong>出处加载中</strong>
-                    </p>
-                    <div class="navigation-wrapper iUp">
-                        <div>
-                            <nav class="cover-navigation cover-navigation--primary">
-                                <ul class="navigation">
-                                    <li class="navigation__item">
-                                        <a href="https://zhima.zz.ac/" class="button" target="_blank" rel="noopener">首页</a>
-                                    </li>
-                                    <li class="navigation__item">
-                                        <a href="https://blog.zhima.zz.ac/" class="button" target="_blank" rel="noopener">博客</a>
-                                    </li>
-                                    <li class="navigation__item">
-                                        <a href="https://oj.zhima.zz.ac/" class="button" target="_blank" rel="noopener">OJ</a>
-                                    </li>
-		    <li class="navigation__item">
-                                        <a href="https://status.zhima.zz.ac/" class="button" target="_blank" rel="noopener">更多</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="iUp">
-                            <nav class="cover-navigation navigation--social">
-                                <ul class="navigation">
-                                    <li class="navigation__item">
-                                        <a href="https://github.com/ZhimaMe/" title="github" target="_blank" rel="noopener">
-                                            <i class='social iconfont icon-github'></i>
-                                            <span class="label">github</span>
-                                        </a>
-                                    </li>
-                                    <li class="navigation__item">
-                                        <a href="zhima@zz.ac" title="email">
-                                            <i class='social iconfont icon-email'></i>
-                                            <span class="label">email</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-cover--overlay cover-slate"></div>
-        </div>
-    </header>
+	<span class="mobile btn-mobile-menu">
+		<i class="social iconfont icon-list btn-mobile-menu__icon"></i>
+		<i class="social iconfont icon-angleup btn-mobile-close__icon hidden"></i>
+	</span>
+	<header id="panel" class="panel-cover">
+		<div class="panel-main">
+			<div class="panel-main__inner panel-inverted">
+				<div class="panel-main__content">
+					<div class="ih-item circle effect right_to_left">
+						<a href="#" title="" class="blog-button">
+							<div class="img"><img src="https://unpkg.com/dmego-home-page@latest/assets/img/logo3.jpg" alt="img" class="js-avatar iUp profilepic"></div>
+							<div class="info iUp">
+								<div class="info-back">
+									<h2>物竞天择</h2>
+									<p>适者生存</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<h1 class="panel-cover__title panel-title iUp">
+						<a href="#" title="芝麻">Zhima</a>
+					</h1>
+					<p class="panel-cover__subtitle panel-subtitle iUp">古希腊掌管免费资源的神</p>
+					<hr class="panel-cover__divider iUp" />
+					<p id="description" class="panel-cover__description iUp">一言加载中 <br />
+						<strong>出处加载中</strong>
+					</p>
+					<div class="navigation-wrapper iUp">
+						<div>
+							<nav class="cover-navigation cover-navigation--primary">
+								<ul class="navigation">
+									<li class="navigation__item">
+										<a href="https://zhima.zz.ac/" class="button" target="_blank" rel="noopener">首页</a>
+									</li>
+									<li class="navigation__item">
+										<a href="https://blog.zhima.zz.ac/" class="button" target="_blank" rel="noopener">博客</a>
+									</li>
+									<li class="navigation__item">
+										<a href="https://oj.zhima.zz.ac/" class="button" target="_blank" rel="noopener">OJ</a>
+									</li>
+									<li class="navigation__item">
+										<a href="https://status.zhima.zz.ac/" class="button" target="_blank" rel="noopener">更多</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="iUp">
+							<nav class="cover-navigation navigation--social">
+								<ul class="navigation">
+									<li class="navigation__item">
+										<a href="https://github.com/ZhimaMe/" title="github" target="_blank" rel="noopener">
+											<i class='social iconfont icon-github'></i>
+											<span class="label">github</span>
+										</a>
+									</li>
+									<li class="navigation__item">
+										<a href="zhima@zz.ac" title="email">
+											<i class='social iconfont icon-email'></i>
+											<span class="label">email</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-cover--overlay cover-slate"></div>
+		</div>
+	</header>
+	<div class="scroll-down-arrow" id="scrollDownArrow">
+		<div class="arrow-icon">↓</div>
+		<div class="arrow-text">页脚在下面</div>
+	</div>
+	<footer class="site-footer" id="siteFooter">
+		<div class="footer-content">
+			<a href="https://icp.xnet.ren/id.php?keyword=20266688" target="_blank" rel="noopener">
+				<img src="https://shields.wudu.ltd/gen.php?part1=信网联盟&style=coral&part2=20266688" alt="信网联盟备案" style="height: 20px; vertical-align: middle;">
+			</a>
+			<span class="footer-separator">|</span>
+			<a href="https://icp.redcha.cn/beian/ICP-2026010287.html" title="茶ICP备2026010287号" target="_blank">
+				<img src="./chaicp.svg" alt="茶ICP备案" style="height: 20px; vertical-align: middle;">
+			</a>
+			<span class="footer-separator">|</span>
+			<span class="github-badge">
+				<span class="badge-subject" style="margin-right: 5px; font-size: 12px;">雾备</span>
+				<a style="color:#fff" href="https://icp.wudu.ltd/id.php?keyword=20266688" rel="external" target="_blank">
+					<span class="badge-value bg-cai" style="display: inline-block; font-size: 12px;">20266688号</span>
+				</a>
+			</span>
+			<span class="footer-separator">|</span>
+			<a href="https://icp.gov.moe/?keyword=20260668" target="_blank" rel="noopener">
+				<img src="https://shields.wudu.ltd/gen.php?part1=萌ICP备&style=purple&part2=20260688号" alt="萌ICP备案" style="height: 20px; vertical-align: middle;">
+			</a>
+			<span class="footer-separator">|</span>
+			<a href="https://www.snzy.cc/website/TYF2026011714000117.html" title="芝麻の小窝的三年之约" target="_blank">
+				<img style="width:130px;height:45px;" src="https://www.snzy.cc/images/snzylogo.png" alt="三年之约">
+			</a>
+			<span class="footer-separator">|</span>
+			<a onclick="window.open('https://www.ktrust.cc/trust.php?sn=emhpbWEuenouYWM=','Trust SSL 安全签章','height=1000,width=660,top=0')">
+				<img src="https://www.ktrust.cc/images/TrustSSL-business.png" alt="Trust SSL 安全签章" style="height: 45px;">
+			</a>
+			<span class="footer-separator">|</span>
+			<a href="https://i.n3v.cn/keyword.php?type=BXT1562365895" title="芝麻の小窝" target="_blank">
+				<img style="height:35px;" src="https://i.n3v.cn/assets/images/blog-star.png" alt="芝麻の小窝">
+			</a>
+			<span class="footer-separator">|</span>
+			<a href="https://www.ssljx.cn/zhima.zz.ac" target="_blank">
+				<img src="https://www.ssljx.cn/static/image/sslr.png" alt="SSL认证" style="height: 35px;">
+			</a>
+		</div>
+	</footer>
+	<div id="wechatModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;"
+		onclick="closeWeChatModal()">
+		<img src="./assets/img/wechat.jpg" alt="WeChat" style="max-width: 300px; max-height: 300px; border-radius: 10px;" onclick="event.stopPropagation()">
+	</div>
+	<script type="text/javascript" src="https://unpkg.com/dmego-home-page@latest/assets/js/main.js"></script>
 
-    <!-- 添加的页脚部分 -->
-    <footer style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        z-index: 999;
-    ">
-        <div style="
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        ">
-            <a href="https://icp.xnet.ren/id.php?keyword=20266688" target="_blank" rel="noopener">
-                <img src="https://shields.wudu.ltd/gen.php?part1=信网联盟&style=coral&part2=20266688" alt="信网联盟备案" style="height: 20px; vertical-align: middle;">
-            </a>
-|
-            <a href="https://icp.redcha.cn/beian/ICP-2026010287.html" title="茶ICP备2026010287号" target="_blank"><img src="./chaicp.svg" /></a>
-|
-            <span class="github-badge" style="display: inline-flex; align-items: center;">
-    <span class="badge-subject" style="margin-right: 5px; font-size: 12px;">雾备</span>
-    <a style="color:#fff" href="https://icp.wudu.ltd/id.php?keyword=20266688" rel="external" target="_blank">
-        <span class="badge-value bg-cai" style="display: inline-block; font-size: 12px;">20266688号</span>
-    </a>
-</span>
-|
-            <a href="https://icp.gov.moe/?keyword=20260668" target="_blank" rel="noopener">
-                <img src="https://shields.wudu.ltd/gen.php?part1=萌ICP备&style=purple&part2=20260688号" style="height: 20px; vertical-align: middle;">
-            </a>
-|
-<a href="https://www.snzy.cc/website/TYF2026011714000117.html" title="芝麻の小窝的三年之约" target="_blank"><img style="width:130px;height:45px;" src="https://www.snzy.cc/images/snzylogo.png"></a>
-|<!-- Trust SSL 蓝色商务安全签章 Start -->
-<a onclick="window.open('https://www.ktrust.cc/trust.php?sn=emhpbWEuenouYWM=','Trust SSL 安全签章','height=1000,width=660,top=0')" >
-    <img src="https://www.ktrust.cc/images/TrustSSL-business.png" style="height: 45px;">
-</a>
-<!-- Trust SSL 蓝色商务安全签章 End -->|<a href="https://i.n3v.cn/keyword.php?type=BXT1562365895" title="芝麻の小窝" target="_blank"><img style="height:35px;" src="https://i.n3v.cn/assets/images/blog-star.png" alt="芝麻の小窝"></a>
-|<a href="https://www.ssljx.cn/zhima.zz.ac" target="_blank">
-    <img src="https://www.ssljx.cn/static/image/sslr.png" style="height: 35px;">
-</a>
-        </div>
-    </footer>
+<script>
+// 1. 设置壁纸（浏览器会自动处理302重定向）
+const style = document.createElement('style');
+style.textContent = `
+    body, html {
+        background-image: url('https://wp.upx8.com/api.php?content=风景') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+    }
+    #panel, .panel-cover {
+        background: transparent !important;
+    }
+`;
+document.head.appendChild(style);
 
-    <!-- WeChat Modal -->
-    <div id="wechatModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;" onclick="closeWeChatModal()">
-        <img src="./assets/img/wechat.jpg" alt="WeChat" style="max-width: 300px; max-height: 300px; border-radius: 10px;" onclick="event.stopPropagation()">
-    </div>
-    <script type="text/javascript" src="https://unpkg.com/dmego-home-page@latest/assets/js/main.js"></script>
-    <script type="text/javascript" src="./assets/json/images.json?cb=getBingImages"></script>
+// 2. 页脚和箭头控制
+document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.getElementById('siteFooter');
+    const arrow = document.getElementById('scrollDownArrow');
+    let isFooterVisible = false;
+    let scrollTimeout = null;
+    let lastScrollTop = 0;
+    
+    // 箭头点击事件
+    arrow.addEventListener('click', function() {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    });
+    
+    // 滚动检测逻辑
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const isScrollingDown = scrollTop > lastScrollTop;
+        lastScrollTop = scrollTop;
+        const isAtBottom = scrollTop + windowHeight >= documentHeight - 100;
+        
+        if (isAtBottom || isFooterVisible) {
+            arrow.classList.add('hidden');
+        } else if (scrollTop > 50) {
+            if (!isScrollingDown) {
+                arrow.classList.remove('hidden');
+            }
+        } else {
+            arrow.classList.remove('hidden');
+        }
+        
+        if (isAtBottom && !isFooterVisible) {
+            footer.classList.add('visible');
+            isFooterVisible = true;
+        } else if (!isAtBottom && isFooterVisible) {
+            footer.classList.remove('visible');
+            isFooterVisible = false;
+        }
+        
+        scrollTimeout = setTimeout(function() {
+            if (!isAtBottom && isFooterVisible) {
+                footer.classList.remove('visible');
+                isFooterVisible = false;
+            }
+        }, 1000);
+    });
+    
+    function checkInitialPosition() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const isAtBottom = scrollTop + windowHeight >= documentHeight - 100;
+        
+        if (isAtBottom) {
+            footer.classList.add('visible');
+            isFooterVisible = true;
+            arrow.classList.add('hidden');
+        }
+    }
+    
+    setTimeout(checkInitialPosition, 100);
+});
+</script>
 </body>
 </html>
